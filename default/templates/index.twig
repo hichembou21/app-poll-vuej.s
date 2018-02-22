@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>My PDO Project</title>
+        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <a id="liste" href="#"><h4 class="title">Afficher la liste des personnes</h5></a>
+        <a id="inscrip" href="#"><h4 class="title">Inscrivez vous!</h5></a>
+                
+        <section class="liste-persons"> 
+            <h1 class="title text-center">liste des personnes </h1>
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Birthdate</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Opération</th>                
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in pers %}
+                <tr>
+                <th scope="row">{{p.id}}</th>
+                    <td> {{p.name}} </td>
+                    <td> {{p.birthdate.format('Y-m-d H:i:s')}} </td>
+                    <td> {{p.gender}} </td>
+                    <td>
+                        <a href="{{path_for('update', {'id':p.id})}}"><img src="/img/pencil.png" alt="pencil" width="30" height="30"></a>
+                        <a href="{{path_for('delete', {'id':p.id})}}"><img src="/img/poubelle.png" alt="pencil" width="30" height="30"></a>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </section>
+        
+
+        <section class="sign-up container-col">
+            <h1 class="title"> Sign Up </h1>
+    
+            <form class="form-sign-up container-col" action="{{path_for('index')}}" method="post">
+                <fieldset class="form-group">
+                <div class="form-group row">
+                    <label for="input-name" class="col-sm-2 col-form-label">name</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="name" placeholder="your name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input-birthdate" class="col-sm-2 col-form-label">birthdate</label>
+                    <div class="col-sm-6">
+                        <input type="date" class="form-control" name="birthdate" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="input-gender" class="col-sm-2 col-form-label">Gender</label>                
+                    <div class="col-sm-6">
+                        <select class="custom-select" name="gender" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="0">male</option>
+                            <option value="1">female</option>
+                            <option value="2">autre</option>
+                        </select>
+                    </div>
+                </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary sign-up-btn">Sign in</button>
+            </form>
+        </section>
+
+        <script src="/script/app.js" type="text/javascript"></script>
+    </body>
+</html>
